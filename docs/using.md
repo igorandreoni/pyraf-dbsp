@@ -54,16 +54,27 @@ When IRAF is waiting for your input in the graphics window, you can type `?` to 
 
 Note that commands in the graphics window may require you to click to focus; then you may have to click back to type responses in the terminal.
 
-The first screen (shown below) allows you to edit the aperture for extracting the spectrum.
+The first screen (shown below) allows you to edit the aperture for extracting the spectrum.  
 
 ![text](aperture.png)
 
 * Use `d` to delete trace, `m` to set it
+* `l` to set the lower limit for the aperture
+* `u` to set the upper limit for the aperture
 * `b` to enter background editing
 * `z` to delete background intervals
-* `s` `s` (with cursor positions) to mark new fit regions
+* `s` `s` (with cursor positions) to mark new fit regions for the backgorund.
 * `f` to fit
 * `q` to quit
+
+We expect to find the peak around pixel number 150 on the blue side, pixel number 50 on the red side.  The pipeline considers the brightest object to be the target,
+however this is not necessarily true!  Especially in this case, make sure that you replace the aperture using `d` and `m`.  Also, modifying the background may be
+necessary.  In the example below, a very steep background choice can help reduce galaxy light contamination (brightest peak) from the extraction of a supernova
+spectrum (sharpest peak at about xxxx pixel)
+ 
+![text](aperture.png)
+
+
 
 After you have pressed 'q' to quit, you will be presented with an option to confirm;
 the default is 'yes'. You can just press enter. You will have to click enter twice.
