@@ -16,11 +16,7 @@ Find the full documentation [here](http://pyraf-dbsp-new.readthedocs.org/)
 
   
 
-The original version of this pipeline was developed by Eric Bellm and Branimir Sesar.
-
-[![Documentation Status](https://readthedocs.org/projects/pyraf-dbsp/badge/?version=latest)](http://pyraf-dbsp.readthedocs.org/en/latest/?badge=latest)
-
-Find the full documentation [here](http://pyraf-dbsp.readthedocs.org/)
+The original version of this pipeline was developed by Eric Bellm and Branimir Sesar (https://github.com/ebellm/pyraf-dbsp). Find the full documentation of the original version [here](http://pyraf-dbsp.readthedocs.org/)
 
 
 If you use this pipeline in published work, we request that you cite the 
