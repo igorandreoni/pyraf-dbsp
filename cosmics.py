@@ -66,7 +66,7 @@ import numpy as np
 import math
 import scipy.signal as signal
 import scipy.ndimage as ndimage
-import astropy.io.fits as pyfits
+import pyfits
 import scipy.special as special
 import scipy.interpolate as interpolate
 
@@ -152,7 +152,7 @@ class cosmicsimage:
 		if self.pssl != 0.0:
 			stringlist.append("Using a previously subtracted sky level of %f" % self.pssl)
 			
-		if self.satstars != None:
+		if self.satstars is not None:
 			stringlist.append("Saturated star mask : %i pixels" % np.sum(self.satstars))
 		
 		return "\n".join(stringlist)
@@ -244,7 +244,7 @@ class cosmicsimage:
 		
 		# The medians will be evaluated in this padarray, skipping the np.Inf.
 		# Now in this copy called padarray, we also put the saturated stars to np.Inf, if available :
-		if self.satstars != None:
+		if self.satstars is not None:
 			padarray[2:w+2,2:h+2][self.satstars] = np.Inf
 			# Viva python, I tested this one, it works...
 		
@@ -456,7 +456,7 @@ class cosmicsimage:
 			print "  %5i candidate pixels" % nbcandidates
  		
  		# At this stage we use the saturated stars to mask the candidates, if available :
- 		if self.satstars != None:
+ 		if self.satstars is not None:
  			if verbose:
  				print "Masking saturated stars ..."
  			candidates = np.logical_and(np.logical_not(self.satstars), candidates)
@@ -509,7 +509,7 @@ class cosmicsimage:
 		finalsel = np.logical_and(sp > self.sigcliplow, finalsel)
 		
 		# Again, we have to kick out pixels on saturated stars :
-		if self.satstars != None:
+		if self.satstars is not None:
  			if verbose:
  				print "Masking saturated stars ..."
  			finalsel = np.logical_and(np.logical_not(self.satstars), finalsel)

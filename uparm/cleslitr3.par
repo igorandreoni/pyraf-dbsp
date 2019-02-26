@@ -1,0 +1,77 @@
+imprefix,s,a,"rot",,,"Root ID for initial input images"
+outroot,s,a,"stan.bsky",,,"Root for output images and files"
+images,s,h,"@stanSci.list",,,"Numbers of science images"
+flats,s,h,"@stanFlats.list",,,"Numbers of flat images"
+arcs,s,h,"@stanArcs.list",,,"Numbers of arc images"
+showmode,b,h,no,,,"Show processing steps only?"
+secsfile,s,h,"stanB.secsfile",,,"File with image sections and IDs, def=outroot.secsfile"
+offsets,s,h,"stan.offsets",,,"File with image xy offsets, def=outroot.offsets
+"
+rotprefix,s,h,"rot",,,"Root ID for rotated images"
+szprefix,s,h,"sz",,,"Root ID for szapped images"
+bgprefix,s,h,"bg",,,"Root ID for sky subtracted images
+"
+do_ccdproc,b,h,no,,,"Do ccdproc stage?"
+numamps,i,h,2,,,"Number of amps used in readout"
+biassec,s,h,"",,,"Bias section for one amp ccdproc"
+trimsec,s,h,"",,,"Trim section for one amp ccdproc"
+gainrat,r,h,1.08095,,,"ratio of left gain to right, for two amp ccdproc
+"
+do_flatsum,b,h,no,,,"Do flatsum stage?"
+flat,s,h,"flat",,,"Name of flatsum output image
+"
+do_response,b,h,no,,,"Make response corrected flat?"
+rflat,s,h,"rflat",,,"Name of response-corrected flat"
+sample,s,h,"10:2038",,,"Sampling x range for response fitting"
+func,s,h,"spline3",spline3|legendre|chebyshev|spline1,,"Function for fitting response"
+order,i,h,11,,,"Order for response function fitting"
+dispaxis,i,h,1,,,"Dispersion axis
+"
+do_flatfield,b,h,no,,,"Flatfield images & arcs?"
+fflat,s,h,"rflat",,,"Image to use for flatfielding
+"
+do_cutup,b,h,no,,,"Do cutup stage?"
+do_twiflatfield,b,h,no,,,"Twi-Flatfield images & arcs?"
+do_rotate,b,h,no,,,"Do rotate stage?"
+delete_in,b,h,yes,,,"Delete old images after rotation?
+"
+do_szap,b,h,no,,,"Do szap stage?"
+szinter,b,h,no,,,"Interactive szapping?"
+szorder,i,h,2,,,"Order for background fitting?"
+szlow_rej,r,h,4.,,,"N sigma for low rejection threshold"
+szhigh_rej,r,h,2.5,,,"N sigma for high rejection threshold"
+szniter,i,h,6,,,"Number of iterations for bad pixel rejection"
+szgrow,i,h,1,,,"Grow radius for bad pixel rejection"
+sznavg,i,h,1,,,"Naverage for background fitting"
+szboxsz,i,h,9,,,"Zapping box size"
+sznsigma,r,h,10.,,,"Number of sigma for positive zapping threshold"
+sznnegsigma,r,h,10.,,,"Number of sigma for negative zapping threshold"
+sznrings,i,h,1,,,"Growth radius around cosmic rays
+"
+do_bkgd,b,h,no,,,"Do bkgd stage?"
+bginter,b,h,no,,,"Interactive background fitting?"
+bgfunction,s,h,"legendre",spline3|legendre|chebyshev|spline1,,"Fitting function"
+bgaxis,i,h,1,,,"Axis along which to fit & subtract sky"
+pixperord,i,h,240,,,"Pixels per background order"
+minorder,i,h,3,,,"Minimum order for background fitting"
+bglow_rej,r,h,3.5,,,"N sigma for low rejection threshold"
+bghigh_rej,r,h,2.5,,,"N sigma for high rejection threshold"
+bgniter,i,h,5,,,"Number of iterations for bad pixel rejection"
+bggrow,i,h,2,,,"Grow radius for bad pixel rejection"
+bgnavg,i,h,1,,,"Naverage for background fitting
+"
+do_bpm,b,h,no,,,"Do bpm stage?
+"
+do_sum,b,h,yes,,,"Sum science images?"
+do_arcsum,b,h,yes,,,"Sum arc image(s) correspondingly?"
+arcname,s,h,"",,,"Name for summed arc image, def=outrootarc"
+expname,s,h,"elaptime",,,"Header keyword for exposure times
+"
+do_smosaic,b,h,no,,,"Do smosaic stage?"
+tvfile,s,h,"",,,"Name of tvmark file to make, def=outroot.tvmark"
+reverse,b,h,no,,,"Reverse direction of mosaic?"
+ninter,i,h,5,,,"Interval to skip (in pixels) between spectra"
+blankval,r,h,-50.,,,"Value for filling blank pixels"
+ifile,*struct,h,"",,,
+ifile2,*struct,h,"",,,
+mode,s,h,"ql",,,

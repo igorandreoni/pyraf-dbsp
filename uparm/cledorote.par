@@ -1,0 +1,8 @@
+inroot,s,a,,,,"Input image root name(s)"
+outroot,s,a,,,,"Output image root name(s)"
+secsfile,s,a,,,,"File with image sections and ids"
+delete_in,b,h,yes,,,"Delete input images after rotating?"
+sfile,*struct,h,"",,,
+ifile,*struct,h,"",,,
+ofile,*struct,h,"",,,
+mode,s,h,"ql",,,

@@ -1,0 +1,5 @@
+filename,s,a,,,,"File name"
+validim,b,h,no,,,"Parse only if extension represents valid image datatype?"
+root,s,h,"rot0037",,,"Returned filename root"
+extension,s,h,"",,,"Returned filename extension"
+mode,s,h,"ql",,,

@@ -1,0 +1,12 @@
+operand1,f,a,"image22956_icubes.fits",,,"Operand image or numerical constant"
+op,s,a,"-",+|-|*|/|min|max,,"Operator"
+operand2,f,a,"image22957_icubes.fits",,,"Operand image or numerical constant"
+result,f,a,"testSub.fits",,,"Resultant image"
+title,s,h,"",,,"Title for resultant image"
+divzero,r,h,0.,,,"Replacement value for division by zero"
+hparams,s,h,"",,,"List of header parameters"
+pixtype,s,h,"",,,"Pixel type for resultant image"
+calctype,s,h,"",,,"Calculation data type"
+verbose,b,h,no,,,"Print operations?"
+noact,b,h,no,,,"Print operations without performing them?"
+mode,s,h,"ql",,,

@@ -1,0 +1,5 @@
+images,s,a,,,,"Input image(s) to cut apart"
+secsfile,s,a,,,,"File with image sections and ids"
+ifile,*struct,h,"",,,
+sfile,*struct,h,"",,,
+mode,s,h,"ql",,,

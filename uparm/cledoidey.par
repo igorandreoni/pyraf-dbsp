@@ -1,0 +1,3 @@
+images,s,a,"@rbarcsms.list",,,"Images to identify"
+ifile,*struct,h,"",,,
+mode,s,h,"ql",,,

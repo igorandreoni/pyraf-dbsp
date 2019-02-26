@@ -1,0 +1,7 @@
+inroot,s,a,,,,"Images for hediting"
+crroot,s,a,,,,"Crmask images"
+secsfile,s,h,"stanB.secsfile",,,"File with image sections and ids"
+sfile,*struct,h,"",,,
+ifile,*struct,h,"",,,
+cfile,*struct,h,"",,,
+mode,s,h,"ql",,,

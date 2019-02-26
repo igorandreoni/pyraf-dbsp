@@ -1,0 +1,8 @@
+images,s,a,,,,"Images to flatfield"
+flatfield,s,a,"Nflat.imh",,,"Flat field image"
+rflatfield,s,a,"rNflat.imh",,,"Response-corrected field image"
+secsfile,s,a,,,,"File with image sections and ids"
+sfile,*struct,h,"",,,
+ifile,*struct,h,"",,,
+ofile,*struct,h,"",,,
+mode,s,h,"ql",,,

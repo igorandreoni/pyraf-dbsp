@@ -1,0 +1,4 @@
+dateobs,s,a,,,,'DATE-OBS value, or equivalent'
+timeobs,s,a,,,,'TIME-OBS value, or equivalent'
+status,i,h,0,,,'Exit status'
+mode,s,h,'al'

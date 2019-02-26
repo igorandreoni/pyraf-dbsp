@@ -1,0 +1,4 @@
+inroot,s,a,"rb",,,"Root names for input images"
+secsfile,s,a,"14gqr_blue.b.secsfile",,,"File with image sections and ids"
+sfile,*struct,h,"",,,
+mode,s,h,"ql",,,

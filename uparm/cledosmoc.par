@@ -1,0 +1,11 @@
+inroot,s,a,,,,"Input root name"
+outfile,s,a,,,,"Output mosaic"
+secsfile,s,h,"stanB.secsfile",,,"Name of secsfile"
+tvfile,s,h,"stan.tvmark",,,"Name of tvmark file to make (optional)"
+axis,s,h,"x",x|y,,"Mosaic in x or y?"
+reverse,b,h,no,,,"Reverse direction of mosaic?"
+ninter,i,h,5,,,"Interval to skip (in pixels) between spectra"
+blankval,r,h,-50.,,,"Value for filling blank pixels"
+inimglist,*struct,h,"",,,
+slist,*struct,h,"",,,
+mode,s,h,"ql",,,

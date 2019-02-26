@@ -1,0 +1,9 @@
+logfile,s,a,'gmos.log',,,'Logfile name'
+curtask,s,a,,,,'Name of the current task'
+curpack,s,a,,,,"Name of the task's package"
+paramstr,s,a,,,,'User formatted list of parameter/value pairs'
+fl_append,b,h,yes,,,'Append to logfile'
+glogpars,pset,h,'',,,'Logging preferences'
+verbose,b,h,yes,,,'Verbose'
+status,i,h,0,,,'Exit status (0=good)'
+mode,s,h,'al'

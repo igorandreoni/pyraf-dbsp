@@ -1,0 +1,8 @@
+inlist,s,a,,,,"Input spectra for zapping"
+outlist,s,a,,,,"Zapped output spectra"
+inter,b,h,yes,,,"Fit background interactively?"
+restore,b,h,yes,,,"Restore sky to zapped spectrum?"
+verbose,b,h,yes,,,"Verbose output?"
+inimglist,*struct,h,"",,,
+outimglist,*struct,h,"",,,
+mode,s,h,"ql",,,

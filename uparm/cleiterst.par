@@ -1,0 +1,13 @@
+image,s,a,,,,"Input image(s)"
+nsigrej,r,h,5.,0.,,"Number of sigmas for limits"
+maxiter,i,h,10,1,,"Maximum number of iterations"
+print,b,h,yes,,,"Print final results?"
+verbose,b,h,yes,,,"Show results of iterations?"
+lower,r,h,INDEF,,,"Initial lower limit for data range"
+upper,r,h,INDEF,,,"Initial upper limit for data range"
+mean,r,h,-3.0517580000000E-5,,,"Returned value of mean"
+sigma,r,h,0.,,,"Returned value of sigma"
+median,r,h,INDEF,,,"Returned value of sigma"
+valmode,r,h,INDEF,,,"Returned value of mode"
+inimglist,*struct,h,"",,,
+mode,s,h,"ql",,,

@@ -1,0 +1,5 @@
+input,s,a,"16hgs_red.long2.fits.sbgp.fits.ms.dc",,,"Input list of image spectra"
+output,s,a,"16hgs_red.long2.txt",,,"Output list of text spectra"
+header,b,h,no,,,"Include header?"
+wformat,s,h,"",,,"Wavelength format"
+mode,s,h,"ql",,,

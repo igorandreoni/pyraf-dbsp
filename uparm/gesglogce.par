@@ -1,0 +1,7 @@
+logfile,s,a,,,,'Logfile name'
+curtask,s,a,,,,'Name of the parent task'
+fl_success,b,a,,,,'Was task successful'
+glogpars,pset,h,'',,,'Logging preferences'
+verbose,b,h,yes,,,'Verbose'
+status,i,h,0,,,'Exit status (0=good)'
+mode,s,h,'al'

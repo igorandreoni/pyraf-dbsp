@@ -1,0 +1,22 @@
+inlist,s,a,,,,"Image(s) for cosmic ray cleaning"
+outlist,s,a,,,,"Output image(s)"
+zboxsz,i,h,9,3,,"Box size for zapping"
+nsigma,r,h,10.,0.,,"Number of sky sigma for zapping threshold"
+nnegsigma,r,h,10.,0.,,"Number of sky sigma for negative zapping"
+nrings,i,h,1,0,,"Number of pixels to flag as buffer around CRs"
+nobjsigma,r,h,1.,0.,,"Number of sky sigma for object identification"
+skyfiltsize,i,h,7,0,,"  Median filter size for local sky evaluation"
+skysubsample,i,h,1,0,,"  Block averaging factor before median filtering"
+ngrowobj,i,h,0,0,,"  Number of pixels to flag as buffer around objects"
+statsec,s,h,"",,,"Image section to use for computing sky sigma"
+deletemask,b,h,no,,,"Delete CR mask after execution?"
+cleanpl,b,h,yes,,,"Delete other working .pl masks after execution?"
+cleanimh,b,h,yes,,,"Delete working .imh images after execution?"
+verbose,b,h,yes,,,"Verbose output?"
+checklimits,b,h,yes,,,"Check min and max pix values before filtering?"
+zmin,r,h,-32768.,,,"Minimum data value for fmedian"
+zmax,r,h,32767.,,,"Minimum data value for fmedian"
+inimglist,*struct,h,"",,,
+outimglist,*struct,h,"",,,
+statlist,*struct,h,"",,,
+mode,s,h,"ql",,,

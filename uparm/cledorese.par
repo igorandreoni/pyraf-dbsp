@@ -1,0 +1,9 @@
+iflat,s,a,,,,"Input simple flatfield image"
+nflat,s,a,,,,"Output normalized flatfield image"
+secsfile,s,h,"16hgs_red.r.b.secsfile",,,"File with image sections"
+sample,s,h,"10:2038",,,"Sampling x range for response fitting"
+func,s,h,"spline3",spline3|legendre|chebyshev|spline1,,"Function for fitting response"
+order,i,h,11,,,"Order for response function fitting"
+dispaxis,i,h,1,,,"Dispersion axis"
+sfile,*struct,h,"",,,
+mode,s,h,"ql",,,

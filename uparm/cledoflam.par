@@ -1,0 +1,7 @@
+input,s,a,,,,"Flat field input image names"
+output,s,a,,,,"Output averaged flat name"
+secsfile,s,h,"stanB.secsfile",,,"File with image sections and ids"
+statsec,s,h,,,,"Image section for averaging if secsfile==none"
+sfile,*struct,h,"",,,
+ifile,*struct,h,"",,,
+mode,s,h,"ql",,,

@@ -1,0 +1,5 @@
+inimage,s,a,,,,'Select gaindb for this image'
+gaindb,s,h,'gmos$data/gmosamps.dat',,,'Output. Name of gain db for input image'
+logfile,s,h,'',,,'Logfile for task'
+status,i,h,0,,,'Exit status (0=good)'
+mode,s,h,'al'

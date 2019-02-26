@@ -1,0 +1,17 @@
+inroot,s,a,,,,"Images for subtracting background"
+outroot,s,a,,,,"Sky subtracted output images"
+secsfile,s,a,,,,"File with image sections and ids"
+inter,b,h,no,,,"Interactive background fitting?"
+function,s,h,"legendre",spline3|legendre|chebyshev|spline1,,"Fitting function"
+axis,i,h,1,,,"Axis along which to fit & subtract sky"
+pixperord,i,h,240,,,"Pixels per background order"
+minorder,i,h,3,,,"Minimum order for background fitting"
+low_rej,r,h,3.5,,,"N sigma for low rejection threshold"
+high_rej,r,h,2.5,,,"N sigma for high rejection threshold"
+niter,i,h,5,,,"Number of iterations for bad pixel rejection"
+grow,i,h,2,,,"Grow radius for bad pixel rejection"
+navg,i,h,1,,,"Naverage for background fitting"
+sfile,*struct,h,"",,,
+ifile,*struct,h,"",,,
+ofile,*struct,h,"",,,
+mode,s,h,"ql",,,

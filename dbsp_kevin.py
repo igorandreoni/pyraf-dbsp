@@ -1049,7 +1049,7 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
         # TODO: run setairmass; ensure extinction is set up correctly
         iraf.calibrate.extinction = ''
         # I'm not sure yet why this gets moved to .0001...
-        iraf.calibrate.sensitivity = 'sens-{}'.format(side)
+        iraf.calibrate.sensitivity = 'sens-{}.0001'.format(side)
         iraf.calibrate.ignoreaps = 'yes'
         iraf.calibrate()
 

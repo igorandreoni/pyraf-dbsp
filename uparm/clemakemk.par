@@ -1,0 +1,18 @@
+inlist,s,a,,,,"Image(s) to mask"
+prefix,s,h,"mask_",,,"Prefix for mask files."
+headlist,s,h,"",,,"Image(s) to which to add BPM cards"
+subsample,i,h,1,0,,"Block averaging factor before median filtering"
+filtsize,i,h,15,0,,"Median filter size for local sky evaluation"
+nsmooth,i,h,3,0,,"Scale for boxcar smothing before thresholding"
+threshtype,s,h,"nsigma",nsigma|constant,,"Thresholding type:  nsigma or constant"
+nsigthresh,r,h,2.,,,"Threshold for masking in sky sigma"
+constthresh,r,h,0.,,,"Constant threshold above sky for masking"
+ngrow,i,h,0,0,,"Width of rings to grow around masked objects"
+statsec,s,h,"",,,"Image region to use for computing sky statistics"
+checklimits,b,h,yes,,,"Check min and max pix values before filtering?"
+zmin,r,h,-32767.,,,"Minimum data value for fmedian"
+zmax,r,h,32767.,,,"Minimum data value for fmedian"
+verbose,b,h,no,,,"Verbose output?"
+imglist,*struct,h,"",,,
+imglist2,*struct,h,"",,,
+mode,s,h,"ql",,,

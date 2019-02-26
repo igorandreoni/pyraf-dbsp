@@ -1,0 +1,5 @@
+spectra,s,a,"16hgs_red.long2.fits.sbgp.fits.ms.dc",,,"List of spectra"
+shift,r,a,2.461,,,"Shift to add to dispersion coordinates"
+apertures,s,h,"",,,"List of apertures to shift"
+verbose,b,h,no,,,"Print verbose information?"
+mode,s,h,"ql",,,

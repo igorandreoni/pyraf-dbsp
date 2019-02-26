@@ -1,0 +1,8 @@
+image,s,a,,,,'Input image'
+field,s,a,,,,'Keyword name'
+value,s,a,,,,'Value'
+comment,s,a,,,,'Comment to add for keyword'
+delete,b,h,no,,,'Delete keyword(s)?'
+upfile,s,h,'',,,'Update Command file'
+status,i,h,0,,,'Exit status'
+mode,s,h,'al'

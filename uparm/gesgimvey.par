@@ -1,0 +1,4 @@
+image,s,a,,,,'Input image'
+outname,s,h,'tgsN20190201S0178',,,'Output name w/o suffix'
+status,i,h,1,,,'Status'
+mode,s,h,'al'

@@ -377,7 +377,7 @@ def make_flats(side='blue',overwrite=False):
                    iraf.twodspec.longslit.dispaxis = 2
                  #  iraf.unlearn('response')
                  #  iraf.response.function = 'legendre'
-                 #  iraf.response.order = 100
+                   iraf.response.order = 100
                  #  iraf.response.high_rej = 5
                  #  iraf.response.low_rej = 2
                  #  iraf.response.niterate = 10
@@ -654,32 +654,32 @@ def store_standards(imgID_list, side='blue', trace=None,
 
     iraf.delete('std-{}'.format(side), verify='no')
     iraf.delete('sens-{}'.format(side), verify='no')
-    if side == 'blue':
-        iraf.unlearn('standard')
+    #if side == 'blue':
+    iraf.unlearn('standard')
  #   iraf.standard.caldir = "onedstds$iidscal/"
-        iraf.standard.caldir = "/home/tkupfer/dbsp/"
-        iraf.standard.star_name = ""
-        iraf.standard.output = 'std-{}'.format(side)
-        # use the tabulated bandpasses for the standards
-        iraf.standard.bandwidth = "INDEF"
-        iraf.standard.bandsep = "INDEF"
-        # try these one at a time
-        for imgID in imgID_list:
-         # use the extracted spectrum!
-           iraf.standard('%s%04d.spec.fits' % (side, imgID))
-    else:
-        iraf.unlearn('standard')
-        iraf.standard.caldir = "onedstds$iidscal/"
-     #   iraf.standard.caldir = ""
-     #   iraf.standard.star_name = ""
-        iraf.standard.output = 'std-{}'.format(side)
-        # use the tabulated bandpasses for the standards
-        iraf.standard.bandwidth = "INDEF"
-        iraf.standard.bandsep = "INDEF"
-        # try these one at a time
-        for imgID in imgID_list:
-         # use the extracted spectrum!
-           iraf.standard('%s%04d.spec.fits' % (side, imgID))     
+    iraf.standard.caldir = "/home/ia/DBSP_pipeline/"
+    iraf.standard.star_name = ""
+    iraf.standard.output = 'std-{}'.format(side)
+    # use the tabulated bandpasses for the standards
+    iraf.standard.bandwidth = "INDEF"
+    iraf.standard.bandsep = "INDEF"
+    # try these one at a time
+    for imgID in imgID_list:
+     # use the extracted spectrum!
+       iraf.standard('%s%04d.spec.fits' % (side, imgID))
+#    else:
+#        iraf.unlearn('standard')
+#        iraf.standard.caldir = "onedstds$iidscal/"
+#     #   iraf.standard.caldir = ""
+#     #   iraf.standard.star_name = ""
+#        iraf.standard.output = 'std-{}'.format(side)
+#        # use the tabulated bandpasses for the standards
+#        iraf.standard.bandwidth = "INDEF"
+#        iraf.standard.bandsep = "INDEF"
+#        # try these one at a time
+#        for imgID in imgID_list:
+#         # use the extracted spectrum!
+#           iraf.standard('%s%04d.spec.fits' % (side, imgID))     
 
     iraf.unlearn('sensfunc')
     iraf.sensfunc.standards = 'std-{}'.format(side)
@@ -742,7 +742,7 @@ def estimateFWHM(imgID, side='blue'):
 
 def extract1D(imgID, side='blue', trace=None, arc=None, splot='no', 
         resize='yes', flux=True, telluric_cal_id=None, reextract=False, 
-        redo='no', crval=None, cdelt=None, quicklook='no'):
+        redo='no', crval=None, cdelt=None, quicklook='no',cw=False, w1=5500,w2=8900):
     """Extract spectra for science objects and apply flux and telluric 
     corrections if requested.
     
@@ -789,6 +789,10 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
     quicklook : {'yes', 'no' (default)}
         Non-interactive aperture selection, tracing, and dispersion?  Passed
         to iraf.doslit.
+    cw: { True (default) or False }: change the wavelength range to get more accurate 
+        flux calibration
+    w1: starting wavelength
+    w2: ending wavelength
     """
 
     assert (side in ['blue', 'red'])
@@ -1038,7 +1042,7 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
     iraf.imarith(rootname + '.3001', '/', 'norm_d_trace_flat.fits', rootname + '.3001')
     iraf.delete('*trace_flat.fits', verify="no")
 
-
+    #change the wavelength range to get better flux calibration
     # flux, if requested
     if flux:
         iraf.unlearn('calibrate')
@@ -1049,7 +1053,7 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
         # TODO: run setairmass; ensure extinction is set up correctly
         iraf.calibrate.extinction = ''
         # I'm not sure yet why this gets moved to .0001...
-        iraf.calibrate.sensitivity = 'sens-{}'.format(side)
+        iraf.calibrate.sensitivity = 'sens-{}.0001'.format(side)
         iraf.calibrate.ignoreaps = 'yes'
         iraf.calibrate()
 
@@ -1079,11 +1083,25 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
         iraf.dispcor(rootname + '%s.0001' % (suffix), 
                 rootname + '%s.spec' % (suffix), w1=hdr_arc['CRVAL1'], 
                 dw=hdr_arc['CDELT1'], nw=hdr_arc['NAXIS1'])
-        iraf.wspectext(rootname + '%s.spec.fits' % (suffix), 
-                rootname + '%s.spec.txt' % (suffix), header="no")
         iraf.dispcor(rootname + '%s.3001' % (suffix), 
                 rootname + '%s.err' % (suffix), w1=hdr_arc['CRVAL1'], 
                 dw=hdr_arc['CDELT1'], nw=hdr_arc['NAXIS1'], blank=1.0)
+        
+        if cw:
+            iraf.unlearn('scopy')
+            iraf.scopy.w1=w1
+            iraf.scopy.w2=w2
+            iraf.scopy.format="onedspec"
+            iraf.scopy(rootname + '%s.spec' % (suffix),'new1')
+            iraf.delete(rootname + '%s.spec' % (suffix))
+            os.rename('new1.0001.fits',rootname + '%s.spec.fits' % (suffix))
+            iraf.scopy(rootname + '%s.err' % (suffix),'new2')
+            iraf.delete(rootname + '%s.err' % (suffix))
+            os.rename('new2.0001.fits',rootname + '%s.err.fits' % (suffix))
+            
+            
+        iraf.wspectext(rootname + '%s.spec.fits' % (suffix), 
+                rootname + '%s.spec.txt' % (suffix), header="no")
         iraf.wspectext(rootname + '%s.err.fits' % (suffix), 
                 rootname + '%s.err.txt' % (suffix), header="no")
 
@@ -1124,6 +1142,9 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
 
     # measure FWHM of the trace
     estimateFWHM(imgID, side=side)
+    
+    
+    
 
 def combine_sides(imgID_list_blue, imgID_list_red, output=None, splot='yes'):
     """Downsample extracted blue and red spectra onto a common wavelength grid 
@@ -1214,7 +1235,7 @@ def combine_sides(imgID_list_blue, imgID_list_red, output=None, splot='yes'):
         files : list of strings
             Files to disperse
         dw : int
-            Spectral dispersion [Angstroms per pixel]
+          rs  Spectral dispersion [Angstroms per pixel]
         w1 : int
             Minimum wavelength [Angstrom]
         w2 : int
@@ -1932,3 +1953,116 @@ def sync(raw='./raw'):
     """
 
     subprocess.call(['rsync','-d','--ignore-existing',raw+'/','.'])
+
+
+
+
+def cor_coadd(imgID_list, obid,date,side='red'):
+    """Utility for coadding spectra from a single side.
+        
+        Parameters
+        ----------
+        imgID_list : list of ints or int
+        image id(s) to be coadded.
+        side : {'blue' (default), 'red', 'both'}
+        'blue' or 'red' to indicate the arm of the spectrograph
+        
+        """
+    for imgID in imgID_list:
+        if not os.path.exists('{}{:04d}_flux_cor.spec.txt'.format(side,imgID)):
+            iraf.wspectext('{}{:04d}_flux_cor.spec.fits'.format(side,imgID),'{}{:04d}_flux_cor.spec.txt'.format(side,imgID),header='no')
+
+    assert side in ('blue', 'red', 'both')
+    if side == 'both':
+        simple_coadd(imgID_list, side='blue')
+        simple_coadd(imgID_list, side='red')
+        return
+    spec_list_fits = ['{}{:04d}_flux_cor.spec.fits'.format(side,id) for id in imgID_list]
+    out_name = side + '+'.join(['{:03d}'.format(i) for i in imgID_list]) + '_flux_cor'
+
+    prv_files=glob(out_name+'*.txt')
+    for f in prv_files:
+        os.remove(f)
+    prv_files=glob(out_name+'*.fits')
+    for f in prv_files:
+        iraf.delete(f,verify='no')
+    coadd_spectra(spec_list_fits, out_name, scale_spectra=False)
+    
+    if len(str(obid))==4:
+        save_name='SDSSJ'+str(obid)+'_'+str(date)+'_red.txt'
+    else:
+        save_name='SDSSJ0'+str(obid)+'_'+str(date)+'_red.txt'
+    if os.path.exists(save_name):
+        os.remove(save_name)
+    spec_data=np.genfromtxt(out_name+'.spec.txt')
+    err_data=np.genfromtxt(out_name+'.err.txt')
+    
+    new_data=np.vstack((spec_data[:,0],spec_data[:,1],err_data[:,1]))
+    np.savetxt(save_name,new_data.transpose(),fmt='%.3f %.4e %.4e')
+    
+    
+    
+    
+    
+def tell_corr(imgID):
+    #tell_rootname = '%s%04d' % (side, telluric_cal_id)
+    #tell_rootname = 'norm_red.std.fits'
+    #if not os.path.exists('norm_red.std.fits'):
+    #iraf.splot('red')
+    side='red'
+    prv_files=glob('red{:04d}*cor*'.format(imgID))
+    for f in prv_files:
+        iraf.delete(f,verify='no')
+        
+        
+    iraf.unlearn('telluric')
+    rootname='red%04d' %(imgID)
+    
+    hdu=pyfits.open(rootname + '_flux.spec.fits')
+    airmass=hdu[0].header['AIRMASS']
+    hdu.close()
+
+    iraf.telluric.input = rootname + '_flux.spec.fits'
+    iraf.telluric.output = rootname+'_flux_cor.spec.fits'
+    iraf.telluric.sample = "6277:6288,6860:7000,7584:7678,9252:9842"
+    #iraf.telluric.sample = "7584:7678"
+    #iraf.telluric.sample=""
+    iraf.telluric.interactive = "yes"
+    iraf.telluric.cal = 'norm_red.std.fits'
+    iraf.telluric.ignoreaps = 'yes'
+    iraf.telluric.xcorr = 'yes'
+    iraf.telluric.tweakrms = 'yes'
+    iraf.telluric.threshold = 0.01
+    iraf.telluric.airmass=airmass
+    iraf.telluric()
+
+    iraf.wspectext('{}{:04d}_flux_cor.spec.fits'.format(side,imgID),'{}{:04d}_flux_cor.spec.txt'.format(side,imgID),header='no')
+    shutil.copy("{}{:04d}_flux.err.fits".format(side,imgID), "{}{:04d}_flux_cor.err.fits".format(side,imgID))
+    shutil.copy("{}{:04d}_flux.err.txt".format(side,imgID), "{}{:04d}_flux_cor.err.txt".format(side,imgID))
+    shutil.copy("{}{:04d}.snr.fits".format(side,imgID), "{}{:04d}_cor.snr.fits".format(side,imgID))
+
+
+def newname(imgID_list,obid,date,side='blue'):
+    if len(str(obid))==4:
+        save_name='SDSSJ'+str(obid)+'_'+str(date)+'_%s.txt' % side
+    else:
+        save_name='SDSSJ0'+str(obid)+'_'+str(date)+'_%s.txt' % side
+    if os.path.exists(save_name):
+        os.remove(save_name)
+        
+    if len(imgID_list)==1:
+        if side=='red':
+            out_name='{}{:04d}_flux_cor'.format(side,imgID_list[0])
+        else:
+            out_name='{}{:04d}_flux'.format(side,imgID_list[0])
+    else:
+        if side=='red':
+            out_name = side + '+'.join(['{:03d}'.format(i) for i in imgID_list]) + '_flux'
+        else:
+            out_name = side + '+'.join(['{:03d}'.format(i) for i in imgID_list]) + '_flux'
+    spec_data=np.genfromtxt(out_name+'.spec.txt')
+    err_data=np.genfromtxt(out_name+'.err.txt')
+    
+    new_data=np.vstack((spec_data[:,0],spec_data[:,1],err_data[:,1]))
+    np.savetxt(save_name,new_data.transpose(),fmt='%.3f %.4e %.4e')
+        

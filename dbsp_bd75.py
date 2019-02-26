@@ -365,60 +365,25 @@ def make_flats(side='blue',overwrite=False):
         if len(flats) > 0:
             if overwrite:
                 iraf.delete('flat_%s_%s.fits' % (side, aperture), verify='no')
-                iraf.delete('temp.fits' , verify='no')
-                iraf.delete('tempsmooth.fits', verify='no')
-                iraf.delete('norm_temp.fits', verify='no')
-                        # normalize the flat
-                if side == 'blue':   
-                   if len(flats) < 3:
-                     iraf.flatcombine(','.join(flats), output='temp', reject='pclip')
-                   if len(flats) >= 3:
-                     iraf.flatcombine(','.join(flats), output='temp', reject='avsigclip')    
-                   iraf.twodspec.longslit.dispaxis = 2
-                 #  iraf.unlearn('response')
-                 #  iraf.response.function = 'legendre'
-                 #  iraf.response.order = 100
-                 #  iraf.response.high_rej = 5
-                 #  iraf.response.low_rej = 2
-                 #  iraf.response.niterate = 10
-                 #  iraf.response('temp[0]', 'temp[0]',
-                 #   'flat_%s_%s.fits' % (side, aperture), interactive="no")
-                 # iraf.response('norm_temp[0]', 'norm_temp[0]', 
-                 # 'flat_%s_%s.fits' % (side, aperture), interactive="no")
-                 #  os.rename('temp.fits', 'raw_flat_%s_%s.fits' % (side, aperture))
-                   iraf.imfilter.boxcar('temp', 'tempsmooth', xwindow='1', ywindow='500')
-                   iraf.imarith('temp', '/',  'tempsmooth', 'norm_temp.fits')
-                   iraf.response('norm_temp[0]', 'norm_temp[0]', 
-                     'flat_%s_%s.fits' % (side, aperture), interactive="no")
-                   os.rename('norm_temp.fits', 'raw_flat_%s_%s.fits' % (side, aperture))
+                if len(flats) < 3:
+                    iraf.flatcombine(','.join(flats), output='temp', reject='pclip')
+                if len(flats) >= 3:
+                    iraf.flatcombine(','.join(flats), output='temp', reject='avsigclip')
+
+                # normalize the flat
+                iraf.unlearn('response')
+                iraf.response.function = "spline3"
+                iraf.response.order = 100
+                iraf.response.niterate = 3
+                iraf.response.low_rej = 3
+                iraf.response.high_rej = 3
+                if side == 'blue':
+                    iraf.twodspec.longslit.dispaxis = 2
                 else:
-                  if len(flats) < 3:
-                      iraf.flatcombine(','.join(flats), output='temp', reject='pclip')
-                  if len(flats) >= 3:
-                      iraf.flatcombine(','.join(flats), output='temp', reject='avsigclip')    
-                  iraf.twodspec.longslit.dispaxis = 1
-                  iraf.unlearn('response')
-                  iraf.response.function = "spline3"       
-                  iraf.response.order = 100
-                  iraf.response.high_rej = 3
-                  iraf.response.low_rej = 3
-                  iraf.response.niterate = 3
-                  iraf.response('temp[0]', 'temp[0]',
-                   'flat_%s_%s.fits' % (side, aperture), interactive="no")
-                 # iraf.response('norm_temp[0]', 'norm_temp[0]', 
-                 # 'flat_%s_%s.fits' % (side, aperture), interactive="no")
-                  os.rename('temp.fits', 'raw_flat_%s_%s.fits' % (side, aperture))
-       #         iraf.unlearn('response')
-       #         iraf.response.function = "spline3"
-       #         iraf.response.order = 100
-       #         iraf.response.niterate = 3
-       #         iraf.response.low_rej = 3
-       #         iraf.response.high_rej = 3
-             #   if side == 'blue':
-             #       iraf.twodspec.longslit.dispaxis = 2
-             #   else:
-             #       iraf.twodspec.longslit.dispaxis = 1
-             
+                    iraf.twodspec.longslit.dispaxis = 1
+                iraf.response('temp[0]', 'temp[0]', 
+                    'flat_%s_%s.fits' % (side, aperture), interactive="no")
+                os.rename('temp.fits', 'raw_flat_%s_%s.fits' % (side, aperture))
 
                 # measure flat-field error from sigma images
                 iraf.unlearn('imcombine')
@@ -654,37 +619,25 @@ def store_standards(imgID_list, side='blue', trace=None,
 
     iraf.delete('std-{}'.format(side), verify='no')
     iraf.delete('sens-{}'.format(side), verify='no')
-    if side == 'blue':
-        iraf.unlearn('standard')
- #   iraf.standard.caldir = "onedstds$iidscal/"
-        iraf.standard.caldir = "/home/tkupfer/dbsp/"
-        iraf.standard.star_name = ""
-        iraf.standard.output = 'std-{}'.format(side)
-        # use the tabulated bandpasses for the standards
-        iraf.standard.bandwidth = "INDEF"
-        iraf.standard.bandsep = "INDEF"
-        # try these one at a time
-        for imgID in imgID_list:
-         # use the extracted spectrum!
-           iraf.standard('%s%04d.spec.fits' % (side, imgID))
-    else:
-        iraf.unlearn('standard')
-        iraf.standard.caldir = "onedstds$iidscal/"
-     #   iraf.standard.caldir = ""
-     #   iraf.standard.star_name = ""
-        iraf.standard.output = 'std-{}'.format(side)
-        # use the tabulated bandpasses for the standards
-        iraf.standard.bandwidth = "INDEF"
-        iraf.standard.bandsep = "INDEF"
-        # try these one at a time
-        for imgID in imgID_list:
-         # use the extracted spectrum!
-           iraf.standard('%s%04d.spec.fits' % (side, imgID))     
+
+    iraf.unlearn('standard')
+    iraf.standard.caldir = "onedstds$oke1990/"
+    iraf.standard.output = 'std-{}'.format(side)
+    # use the tabulated bandpasses for the standards
+    iraf.standard.bandwidth = "INDEF"
+    iraf.standard.bandsep = "INDEF"
+    # try these one at a time
+    for imgID in imgID_list:
+        # use the extracted spectrum!
+        iraf.standard('%s%04d.spec.fits' % (side, imgID))
 
     iraf.unlearn('sensfunc')
     iraf.sensfunc.standards = 'std-{}'.format(side)
     iraf.sensfunc.sensitivity = 'sens-{}'.format(side)
-    iraf.sensfunc.order = 6
+    if side == 'blue':
+        iraf.sensfunc.order = 3
+    else:
+        iraf.sensfunc.order = 6
     # varun says to use ignoreaps, but it's causing me problems downstream
     # iraf.sensfunc.ignoreaps = 'yes'
     iraf.sensfunc()
@@ -855,8 +808,8 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
     iraf.sparams.b_niterate = 1
     iraf.sparams.select = "average"
     anullus_start = fwhm*2
-    xL = np.floor(np.linspace(-70, -1*anullus_start, 10))
-    xR = np.floor(np.linspace(anullus_start, 70, 10))
+    xL = np.floor(np.linspace(-80, -1*anullus_start, 10))
+    xR = np.floor(np.linspace(anullus_start, 80, 10))
     background_range = ''
     for i in np.arange(xL.size-1):
         background_range += '%d:%d,' % (np.int(xL[i]), np.int(xL[i+1]-1))
@@ -882,29 +835,22 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
 
     # extract the trace from the flat-field image
     hdr = pyfits.getheader(rootname + '.fits')
-    iraf.apall('raw_flat_%s_%s.fits' % (side, hdr['APERTURE']), interactive='no', extras='no', edit="no", nsum=10,        recenter="no", trace="no", background="none", output='trace_flat', find="no", reference=rootname)
+    iraf.apall('raw_flat_%s_%s.fits' % (side, hdr['APERTURE']), interactive='no', extras='no', edit="no", nsum=10, recenter="no", trace="no", background="none", output='trace_flat', find="no", reference=rootname)
     # normalize the response with mean
     m = np.float(iraf.imstat('trace_flat.fits', fields='mean', Stdout=1, format="no")[0])
     iraf.imarith('trace_flat.fits', '/', m, 'trace_flat.fits')
     # transform from pixel to wavelength coordinates
     iraf.hedit('trace_flat.fits', 'REFSPEC1', '%s%s.ms' % (rootname, os.path.splitext(arc)[0]), add="yes", verify="no", show="no")
     iraf.dispcor('trace_flat.fits', 'd_trace_flat.fits', table=rootname + '.ms.fits')
-#    # normalize the response with a low-order spline
-#    #good for red 
-    if side == 'blue':
-         iraf.imfilter.boxcar('d_trace_flat.fits', 'd_trace_flat_smooth.fits', xwindow='1', ywindow='60')
-         iraf.imarith('d_trace_flat.fits', '/',  'd_trace_flat_smooth.fits', 'norm_d_trace_flat.fits')
-         iraf.delete('d_trace_flat_smooth.fits')
-         
-    if side == 'red':
-         iraf.unlearn('continuum')
-         iraf.continuum.order = 8
-         iraf.continuum.high_rej = 5
-         iraf.continuum.low_rej = 2
-         iraf.continuum.niterate = 10
-         iraf.continuum.type = "ratio"
-         iraf.continuum('d_trace_flat.fits', 'norm_d_trace_flat.fits',
-           interactive="no")
+    # normalize the response with a low-order spline
+    iraf.unlearn('continuum')
+    iraf.continuum.order = 5
+    iraf.continuum.high_rej = 5
+    iraf.continuum.low_rej = 2
+    iraf.continuum.niterate = 10
+    iraf.continuum.type = "ratio"
+    iraf.continuum('d_trace_flat.fits', 'norm_d_trace_flat.fits',
+                   interactive="no")
 
     # correct tellurics, if requested
     if telluric_cal_id is not None and side == 'red':
@@ -1049,7 +995,7 @@ def extract1D(imgID, side='blue', trace=None, arc=None, splot='no',
         # TODO: run setairmass; ensure extinction is set up correctly
         iraf.calibrate.extinction = ''
         # I'm not sure yet why this gets moved to .0001...
-        iraf.calibrate.sensitivity = 'sens-{}'.format(side)
+        iraf.calibrate.sensitivity = 'sens-{}[0]'.format(side)
         iraf.calibrate.ignoreaps = 'yes'
         iraf.calibrate()
 

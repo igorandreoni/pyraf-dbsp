@@ -1,0 +1,18 @@
+inroot,s,a,,,,"Root names for input images"
+outroot,s,a,,,,"Root names for output images"
+secsfile,s,a,,,,"File with image sections and ids"
+inter,b,h,no,,,"Interactive szapping?"
+bgorder,i,h,2,,,"Order for background fitting?"
+bglow_rej,r,h,4.,,,"N sigma for low rejection threshold"
+bghigh_rej,r,h,2.5,,,"N sigma for high rejection threshold"
+bgniter,i,h,6,,,"Number of iterations for bad pixel rejection"
+bggrow,i,h,1,,,"Grow radius for bad pixel rejection"
+bgnavg,i,h,1,,,"Naverage for background fitting"
+zboxsz,i,h,9,,,"Zapping box size"
+nsigma,r,h,10.,,,"Number of sigma for positive zapping threshold"
+nnegsigma,r,h,10.,,,"Number of sigma for negative zapping threshold"
+nrings,i,h,1,,,"Growth radius around cosmic rays"
+sfile,*struct,h,"",,,
+ifile,*struct,h,"",,,
+ofile,*struct,h,"",,,
+mode,s,h,"ql",,,

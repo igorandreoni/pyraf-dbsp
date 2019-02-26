@@ -1,0 +1,5 @@
+images,s,a,"/data/kde/commissioning/stacks/20181117/stack_fs119_fid8_q0.fits[1]",,,"image names"
+imlist,s,h,"*.imh,*.fits,*.pl,*.qp,*.hhh",,,"default image names"
+longheader,b,h,yes,,,"print header in multi-line format"
+userfields,b,h,yes,,,"print the user fields (instrument parameters)"
+mode,s,h,"ql",,,

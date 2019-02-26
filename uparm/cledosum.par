@@ -1,0 +1,12 @@
+images,s,a," ",,,"Root names for input images"
+outroot,s,a," ",,,"Root for output file names"
+secsfile,s,a,,,,"File with image sections and ids"
+offsets,s,h,"stan.offsets",,,"File with image xy offsets"
+scale,s,h,"exposure",,,"Scaling for imcombine"
+weight,s,h,"exposure",,,"Weighting for imcombine"
+reject,s,h,"none",,,"Type of rejection for imcombine"
+combine,s,h,"median",,,"Combine type (median or average)"
+expname,s,h,"elaptime",,,"Header keyword for exposure times"
+ifile,*struct,h,"",,,
+sfile,*struct,h,"",,,
+mode,s,h,"ql",,,

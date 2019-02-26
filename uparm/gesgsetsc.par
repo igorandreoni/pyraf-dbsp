@@ -1,0 +1,4 @@
+image,s,a,'',,,'MEF image to update'
+key_datsec,s,h,'DATASEC',,,'Header keyword for data section'
+scanfile,*struct,h,'',,,'Internal use only.'
+mode,s,h,'al'
