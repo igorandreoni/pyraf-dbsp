@@ -69,10 +69,10 @@ The first screen (shown below) allows you to edit the aperture for extracting th
 
 We expect to find the peak around pixel number 150 on the blue side, pixel number 50 on the red side.  The pipeline considers the brightest object to be the target,
 however this is not necessarily true!  Especially in this case, make sure that you replace the aperture using `d` and `m`.  Also, modifying the background may be
-necessary.  In the example below, a very steep background choice can help reduce galaxy light contamination (brightest peak) from the extraction of a supernova
-spectrum (sharpest peak at about xxxx pixel)
+necessary.  In the example below, a very steep background choice can help reduce galaxy light contamination (brightest peak) during the extraction of a supernova
+spectrum (sharpest peak).
  
-![text](aperture.png)
+![text](aperture_bkg.png)
 
 
 
@@ -185,7 +185,8 @@ When you are done, press `q` and then `enter` (4 times).
 
 #### Red side bandpasses 
 
-The most common lines and tellurics are already automatically deleted.  Check the wings of the lines to check if more points must be deleted.
+The most common lines and tellurics are already automatically deleted.  Check the wings of the lines to check if more points must
+be deleted. Also, check if other absorption features are deleted (usually Balmer lines and He lines). 
 
 * `a` `a` (with mouse pointer at two positions) to place new bands
 * `d` to delete bands (on absorption features, say)
@@ -202,7 +203,8 @@ You'll define bands for all of your standard exposures, then fit the sensitivity
 * `s` over graphs to eliminate mean shifts due to non-photometric conditions (toggles)
 * `d` to delete bad points
 * `a` to add points (this is important in case the points are over-fitted and the function "explodes" at the sides or where lines were deleted)
-* `o` Change the order of the fit. IMPORTANT: Use very high order, around 100
+* `o` Change the order of the fit. IMPORTANT: Use very high order on the blue side, around 100. On the red side, use order <20 if the
+spectrum arrives to 10000AA, otherwise an higher order can be used if stopping at about 8900AA. 
 
 Make sure the fitted function doesn't go up after the last points--it will blow up the noise.  Especially on the red side, add points to go all the way to 10000AA! 
 
