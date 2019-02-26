@@ -28,7 +28,9 @@ After running, look at the flats (e.g, `flat_blue_1.0.fits`, `raw_flat_blue_1.0.
 
 
 #### Telluric correction for the red side
-For basic telluric correction on the red side, first extract an appropriate telluric calibrator, then pass it to `store_standards` and `extract1D`:
+For basic telluric correction on the red side, first extract an appropriate telluric calibrator, then pass it to `store_standards` and
+`extract1D`. See below how to perform `extract1D` and `store_standards`, where the description of `store_standards` includes all the step for
+`extract1D`.
 
 	extract1D(77,side='red', flux=False)
 
@@ -170,7 +172,7 @@ all of the commonly-used ones are in `onedstds#iidscal`:
 	
 edit bandpasses - say `yes` to enter bandpasses editing.  What you do next depends on whether you are processing the red or blue side
 
-#### Blue side bandpasses
+##### Blue side bandpasses
 ![text](feige34.png)
 
 use 'd' to delete bandpasses. In this step, you want to remove all bandpasses associated with the Balmer series of absorption lines, as well as those associated with
@@ -183,7 +185,7 @@ removed lines looks like.
 
 When you are done, press `q` and then `enter` (4 times).
 
-#### Red side bandpasses 
+##### Red side bandpasses 
 
 The most common lines and tellurics are already automatically deleted.  Check the wings of the lines to check if more points must
 be deleted. Also, check if other absorption features are deleted (usually Balmer lines and He lines). 
@@ -195,7 +197,7 @@ be deleted. Also, check if other absorption features are deleted (usually Balmer
 Below is an example of what a spectrum with automatically removed lines looks like.
 ![text](feige34_red.png)
 
-#### Both red and blue sides
+##### Both red and blue sides
 
 You'll define bands for all of your standard exposures, then fit the sensitivity function with IRAF's `sensfunc`.
 
@@ -215,11 +217,12 @@ After completing the above steps, the sensitivity function will be defined and y
 This function combines data from the two spectrograph arms; it can also coadd data in an uncertainty-weighted manner.  The output filenames are taken from the `OBJECT` header keyword.
 
 
-### Reduce science targets 
+#### Reduce science targets 
 
-For science objects 
-extract1D(61,side='blue', redo='yes')
-extract1D(61,side='red',flux=True, telluric_cal_id = 77)
+For science objects, follow the same steps described for `store_standards` until the editing of bandpasses. 
+	extract1D(61,side='blue', redo='yes')
+With telluric correction:
+	extract1D(61,side='red',flux=True, telluric_cal_id = 77)
 
 
 ### Tips for on the fly reduction
