@@ -172,7 +172,7 @@ all of the commonly-used ones are in `onedstds#iidscal`:
 	
 edit bandpasses - say `yes` to enter bandpasses editing.  What you do next depends on whether you are processing the red or blue side
 
-##### Blue side bandpasses
+#### Blue side bandpasses
 ![text](feige34.png)
 
 use 'd' to delete bandpasses. In this step, you want to remove all bandpasses associated with the Balmer series of absorption lines, as well as those associated with
@@ -185,7 +185,7 @@ removed lines looks like.
 
 When you are done, press `q` and then `enter` (4 times).
 
-##### Red side bandpasses 
+#### Red side bandpasses 
 
 The most common lines and tellurics are already automatically deleted.  Check the wings of the lines to check if more points must
 be deleted. Also, check if other absorption features are deleted (usually Balmer lines and He lines). 
@@ -197,7 +197,7 @@ be deleted. Also, check if other absorption features are deleted (usually Balmer
 Below is an example of what a spectrum with automatically removed lines looks like.
 ![text](feige34_red.png)
 
-##### Both red and blue sides
+#### Both red and blue sides
 
 You'll define bands for all of your standard exposures, then fit the sensitivity function with IRAF's `sensfunc`.
 

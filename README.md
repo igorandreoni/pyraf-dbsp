@@ -10,7 +10,7 @@ This version of the pipeline was developed mainly by Zhuyun Zhuang and Kevin Bur
 updated documentation were put together during a DBSP data reduction workshop at Caltech in February 2019.  Contributors include: Scott
 Adams, Igor Andreoni, Kevin Burdge, Michael Coughlin, Kishalay De, Alison Dugas, Matthew Hankins, Anna Ho, Yuhan Yao, and Zhuang Zhuyun. 
 
-[![Documentation Status](https://pyraf-dbsp-new.readthedocs.io/en/latest/)](https://pyraf-dbsp-new.readthedocs.io/en/latest/)
+[![Documentation Status](https://readthedocs.org/projects/pyraf-dbsp-new/badge/?version=latest)](https://readthedocs.org/projects/pyraf-dbsp-new/badge/?version=latest)
 
 Find the full documentation [here](http://pyraf-dbsp-new.readthedocs.org/)
 
