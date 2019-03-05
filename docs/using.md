@@ -32,11 +32,11 @@ For basic telluric correction on the red side, first extract an appropriate tell
 `extract1D`. See below how to perform `extract1D` and `store_standards`, where the description of `store_standards` includes all the step for
 `extract1D`.
 
-	extract1D(77,side='red', flux=False)
+	extract1D(77, side='red', flux=False)
 
-	store_standards([41,42,43], side='red', telluric_cal_id = 77)
+	store_standards([41, 42,43], side='red', telluric_cal_id = 77)
 
-	extract1D(63,side='red',flux=True, telluric_cal_id = 77)
+	extract1D(63, side='red', flux=True, telluric_cal_id = 77)
 
 Note that the telluric_cal_id should be specified for all sources. 
 		
@@ -220,9 +220,9 @@ This function combines data from the two spectrograph arms; it can also coadd da
 ## Reduce science targets 
 
 For science objects, follow the same steps described for `store_standards` until the editing of bandpasses. 
-	extract1D(61,side='blue', redo='yes')
+	extract1D(61, side='blue', redo='yes')
 With telluric correction:
-	extract1D(61,side='red',flux=True, telluric_cal_id = 77)
+	extract1D(61, side='red', flux=True, telluric_cal_id=77)
 
 # Sample data
 Raw DBSP data for two public spectra can be found in `sample_data.tar.gz`, one with a substantial host background and one without. You can use these to practice reducing, following the observing log notes below:
