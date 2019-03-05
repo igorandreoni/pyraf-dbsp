@@ -225,7 +225,7 @@ With telluric correction:
 	extract1D(61, side='red', flux=True, telluric_cal_id=77)
 
 # Sample data
-Raw DBSP data for two public spectra can be found in `sample_data.tar.gz`, one with a substantial host background and one without. You can use these to practice reducing, following the observing log notes below:
+Raw DBSP data for two public spectra can be found in `sample_data.tar.gz` on GitHub under "Releases". One of the two has a substantial host background that should be subtracted. You can use these to practice reducing, following the observing log notes below:
 ![text](sample_observing_log.png)
 
 # Tips for on the fly reduction
