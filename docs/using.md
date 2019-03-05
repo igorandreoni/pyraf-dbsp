@@ -34,9 +34,9 @@ For basic telluric correction on the red side, first extract an appropriate tell
 
 	extract1D(77, side='red', flux=False)
 
-	store_standards([41, 42,43], side='red', telluric_cal_id = 77)
+	store_standards([41, 42, 43], side='red', telluric_cal_id=77)
 
-	extract1D(63, side='red', flux=True, telluric_cal_id = 77)
+	extract1D(63, side='red', flux=True, telluric_cal_id=77)
 
 Note that the telluric_cal_id should be specified for all sources. 
 		
