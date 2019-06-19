@@ -12,7 +12,7 @@ Adams, Igor Andreoni, Kevin Burdge, Michael Coughlin, Kishalay De, Alison Dugas,
 
 [![Documentation Status](https://readthedocs.org/projects/pyraf-dbsp-new/badge/?version=latest)](https://readthedocs.org/projects/pyraf-dbsp-new/badge/?version=latest)
 
-Find the full documentation [here](http://pyraf-dbsp-new.readthedocs.org/)
+Find the full documentation [here](docs/using.md)
 
   
 
